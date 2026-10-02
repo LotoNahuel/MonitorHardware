@@ -1,4 +1,5 @@
-using System.Io;
+using System;
+using System.IO;
 using System.Text.Json;
 using exportHardwareSensors;
 using exportValueHardwareSensors;
@@ -41,25 +42,29 @@ namespace saveJson
     public class ListConfig
     {
         public string TypeHardware {get; set;} = "";
-        public string NameHadware {get; set;} = "";
+        public string NameHardware {get; set;} = "";
         public string NameSensor {get; set;} = "";
         public string TypeSensor {get; set;} = "";
     }
-
-    class configurationMonitor
+    
+    public static class configurationMonitor
     {
-        public static async Task SaveConfiguration(List listSensorConfig)
+        public static async Task SaveConfiguration(
+            IEnumerable<ListConfig> sensorConfigurations,
+            string? filePath = null)
         {
-            var lisConfig = new ListConfig
-            {
-                TypeHardware = listSensorConfig[typeHadware],
-                NameHardware = listSensorConfig[nameHardware],
-                NameSensor = listSensorConfig[nameSensor],
-                TypeSenosr = listSensorConfig[typeSensor]
-            };
-        }
+            ArgumentNullException.ThrowIfNull(sensorConfigurations);
 
-        string jsonString = JsonSerializer.Serialize<ListConfig>(listConfig);
+            string destination = filePath ?? Path.Combine(
+                AppContext.BaseDirectory,
+                "sensor-config.json");
+
+            string jsonString = JsonSerializer.Serialize(
+                sensorConfigurations,
+                new JsonSerializerOptions { WriteIndented = true });
+
+            await File.WriteAllTextAsync(destination, jsonString);
+        }
     }
 }
 

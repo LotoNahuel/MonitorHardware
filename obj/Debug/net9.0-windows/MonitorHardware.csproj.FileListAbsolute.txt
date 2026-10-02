@@ -212,3 +212,4 @@ C:\Users\Loto_\Downloads\COSAS\PROGRAMACION\MonitorHardware\MonitorHardware\obj\
 C:\Users\Loto_\Downloads\COSAS\PROGRAMACION\MonitorHardware\MonitorHardware\obj\Debug\net9.0-windows\MonitorHardware.pdb
 C:\Users\Loto_\Downloads\COSAS\PROGRAMACION\MonitorHardware\MonitorHardware\obj\Debug\net9.0-windows\MonitorHardware.genruntimeconfig.cache
 C:\Users\Loto_\Downloads\COSAS\PROGRAMACION\MonitorHardware\MonitorHardware\obj\Debug\net9.0-windows\ref\MonitorHardware.dll
+C:\Users\Nico\Desktop\Tarea\PROGRAMACION\MonitorHardware\MonitorHardware\obj\Debug\net9.0-windows\MonitorHardware.sourcelink.json
