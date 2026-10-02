@@ -1,4 +1,5 @@
-using System;
+using System.Io;
+using System.Text.Json;
 using exportHardwareSensors;
 using exportValueHardwareSensors;
 
@@ -27,7 +28,7 @@ namespace Program
                     while (true)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write($"\r\t{valor}");
+                        Console.Write($"\r\t\t{valor}");
                     }
                 }
             }
@@ -35,14 +36,39 @@ namespace Program
     }
 }
 
-namespace ListSensorConfig
+namespace saveJson
 {
-    class ListConfig
+    public class ListConfig
     {
-        public string NameHardware { get; set; }
-        public string NameSensor { get; set; }
-        public string TypeSensor { get; set; }
+        public string TypeHardware {get; set;} = "";
+        public string NameHadware {get; set;} = "";
+        public string NameSensor {get; set;} = "";
+        public string TypeSensor {get; set;} = "";
     }
 
-    
+    class configurationMonitor
+    {
+        public static async Task SaveConfiguration(List listSensorConfig)
+        {
+            var lisConfig = new ListConfig
+            {
+                TypeHardware = listSensorConfig[typeHadware],
+                NameHardware = listSensorConfig[nameHardware],
+                NameSensor = listSensorConfig[nameSensor],
+                TypeSenosr = listSensorConfig[typeSensor]
+            };
+        }
+
+        string jsonString = JsonSerializer.Serialize<ListConfig>(listConfig);
+    }
 }
+
+// namespace ListSensorConfig
+// {
+//     class ListConfig
+//     {
+//         public string NameHardware { get; set; } = "";
+//         public string NameSensor { get; set; } = "";
+//         public string TypeSensor { get; set; } = "";
+//     }
+// }
