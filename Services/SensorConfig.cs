@@ -77,3 +77,5 @@ namespace saveJson
 //         public string TypeSensor { get; set; } = "";
 //     }
 // }
+
+// codex resume 01a0fee8-c422-7cf2-b9fc-c83b5d20accc
