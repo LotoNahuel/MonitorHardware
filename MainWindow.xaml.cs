@@ -8,16 +8,43 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using exportHardwareSensors;
+using exportValueHardwareSensors;
 
-namespace MonitorHardware;
+namespace MonitorHardware
+{
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainWindow : Window
-{
-    public MainWindow()
+// public partial class MainWindow : Window
+    public partial class MainWindow :  Window
     {
-        // InitializeComponent();
+        public List<string> Sensores { get; set; }
+        // public List<string> Hardware { get; set; }
+
+        public MainWindow()
+        {
+            hardwareSensors hardware = new hardwareSensors();
+            valueSensors values = new valueSensors();
+            InitializeComponent();
+            while (true)
+            {
+                List<(string typeHardware, string nameHardware, string nameSensor, string typeSensor)> data = hardware.GetSensors();
+                foreach (var sensor in data)
+                {
+                    // Hardware = new List<string>
+                    // {
+                    //     $"{sensor.typeHardware}"
+                    // };
+                    Sensores = new List<string>
+                    {
+                        $"{sensor.nameHardware}"
+                    };
+                }
+                DataContext = this;
+            }
+            
+        }
     }
 }

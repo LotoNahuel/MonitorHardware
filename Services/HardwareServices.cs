@@ -11,7 +11,7 @@ namespace exportHardwareSensors
 {
     public class hardwareSensors
     {
-        public List<(string nameHardware, string nameSensosr, string typeSensor)> GetSensors()
+        public List<(string typeHardware, string nameHardware, string nameSensosr, string typeSensor)> GetSensors()
         {
             Computer computer = new Computer
             {
@@ -29,7 +29,7 @@ namespace exportHardwareSensors
             computer.Accept(new UpdateVisitor());
 
             // Dictionary<string, List<(string nameHardware, string nameSensor, string typeSensor)>> data_hardware = new();
-            List<(string nameHardware, string nameSensor, string typeSensor)> data_hardware = new();
+            List<(string typeHardware, string nameHardware, string nameSensor, string typeSensor)> data_hardware = new();
 
             foreach (IHardware hardware in computer.Hardware)
             {
@@ -62,6 +62,7 @@ namespace exportHardwareSensors
                     {
                         data_hardware.Add(
                             (
+                                $"{hardware.HardwareType}",
                                 $"{hardware.Name}",
                                 $"{sensor.Name}",
                                 $"{sensor.SensorType}"

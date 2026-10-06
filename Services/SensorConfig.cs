@@ -13,7 +13,7 @@ namespace Program
             hardwareSensors hardware = new hardwareSensors();
             valueSensors values = new valueSensors();
             // Dictionary<string, List<(string nameHardware, string nameSensor, string typeSensor)>> data = hardware.GetSensors();
-            List<(string nameHardware, string nameSensor, string typeSensor)> data = hardware.GetSensors();
+            List<(string typeHardware, string nameHardware, string nameSensor, string typeSensor)> data = hardware.GetSensors();
 
             foreach (var sensor in data)
             {
