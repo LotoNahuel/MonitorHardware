@@ -8,15 +8,15 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <!-- <Button Name="button" Click="button_Click">Click Me!</Button> -->
-        <TreeView ItemsSource="{Binding Hardware}">
-            <TreeViewItem ItemsSource="{Binding Sensores}">
+        <TreeView ItemsSource="{Binding Sensores}">
+            <!-- <TreeViewItem ItemsSource="{Binding Sensores}"> -->
                 <!-- <TreeViewItem Header = "CPU">
                     <TreeViewItem Header = "INTEL I5 13420H"/>
                 </TreeViewItem>
                 <TreeViewItem Header = "GPU">
                     <TreeViewItem Header = "INTEL UHD"/>
                 </TreeViewItem> -->
-            </TreeViewItem>
+            <!-- </TreeViewItem> -->
         </TreeView>
     </Grid>
 </Window>

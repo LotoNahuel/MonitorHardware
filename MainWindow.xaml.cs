@@ -17,10 +17,9 @@ namespace MonitorHardware
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-// public partial class MainWindow : Window
     public partial class MainWindow :  Window
     {
-        public List<string> Sensores { get; set; }
+        public List<string> Sensores { get; set; } = new();
         // public List<string> Hardware { get; set; }
 
         public MainWindow()
@@ -28,23 +27,23 @@ namespace MonitorHardware
             hardwareSensors hardware = new hardwareSensors();
             valueSensors values = new valueSensors();
             InitializeComponent();
-            while (true)
-            {
-                List<(string typeHardware, string nameHardware, string nameSensor, string typeSensor)> data = hardware.GetSensors();
-                foreach (var sensor in data)
-                {
-                    // Hardware = new List<string>
-                    // {
-                    //     $"{sensor.typeHardware}"
-                    // };
-                    Sensores = new List<string>
-                    {
-                        $"{sensor.nameHardware}"
-                    };
-                }
-                DataContext = this;
-            }
+
+            List<(string typeHardware, string nameHardware, string nameSensor, string typeSensor)> data = hardware.GetSensors();
+
             
+            foreach (var (typeHardware, nameHardware, nameSensor, typeSensor) in data)
+            {
+                bool cont = Sensores.Contains(typeHardware);
+                if (cont is false)
+                {
+                    Sensores.Add(typeHardware);
+                }
+                // Sensores = new List<string>
+                // {
+                //     $"{typeHardware}"
+                // };
+            }
+            DataContext = this;
         }
     }
 }
