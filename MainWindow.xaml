@@ -8,15 +8,18 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <!-- <Button Name="button" Click="button_Click">Click Me!</Button> -->
-        <TreeView ItemsSource="{Binding Sensores}">
-            <!-- <TreeViewItem ItemsSource="{Binding Sensores}"> -->
-                <!-- <TreeViewItem Header = "CPU">
-                    <TreeViewItem Header = "INTEL I5 13420H"/>
-                </TreeViewItem>
-                <TreeViewItem Header = "GPU">
-                    <TreeViewItem Header = "INTEL UHD"/>
-                </TreeViewItem> -->
-            <!-- </TreeViewItem> -->
+        <TreeView ItemsSource="{Binding Hardware}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <!-- <TextBlock Text="{Binding Children}" /> -->
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsExpanded" Value="True" />
+                </Style>
+            </TreeView.ItemContainerStyle>
         </TreeView>
     </Grid>
 </Window>

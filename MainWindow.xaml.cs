@@ -19,8 +19,8 @@ namespace MonitorHardware
 /// </summary>
     public partial class MainWindow :  Window
     {
-        public List<string> Sensores { get; set; } = new();
-        // public List<string> Hardware { get; set; }
+        public List<string> Hardware { get; set; } = new();
+        public List<string> Children { get; set; } = new();
 
         public MainWindow()
         {
@@ -33,11 +33,18 @@ namespace MonitorHardware
             
             foreach (var (typeHardware, nameHardware, nameSensor, typeSensor) in data)
             {
-                bool cont = Sensores.Contains(typeHardware);
-                if (cont is false)
+                bool contH = Hardware.Contains(typeHardware);
+                if (contH is false)
                 {
-                    Sensores.Add(typeHardware);
+                    Hardware.Add(typeHardware);
                 }
+                
+                bool contS = Children.Contains(nameHardware);
+                if (contS is false)
+                {
+                    Children.Add(nameHardware);
+                }
+                
                 // Sensores = new List<string>
                 // {
                 //     $"{typeHardware}"
