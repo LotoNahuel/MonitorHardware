@@ -5,13 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MonitorHardware"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="350">
     <Grid>
         <!-- <Button Name="button" Click="button_Click">Click Me!</Button> -->
-        <TreeView ItemsSource="{Binding Hardware}">
+        <TreeView ItemsSource="{Binding Hardware}"
+            Name="HardwareSensorTreeView"
+            SelectedItemChanged="ArbolSensores_SelectedItemChanged">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Children}">
-                    <!-- <TextBlock Text="{Binding Children}" /> -->
+                    <StackPanel Orientation="Horizontal">
+                        <!-- <TextBlock Text="{Binding HardwareName}" /> -->
+                        <CheckBox Name="checkBox" IsChecked="{Binding IsChecked, Mode=TwoWay}" Content="{Binding HardwareName}" />
+                    </StackPanel>
+                    <!-- <TextBlock Text="{Binding HardwareName}"/> -->
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
 
