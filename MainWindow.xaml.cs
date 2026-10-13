@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using exportHardwareSensors;
 using exportValueHardwareSensors;
+using LibreHardwareMonitor.Hardware;
 
 namespace MonitorHardware
 {
@@ -24,11 +25,13 @@ namespace MonitorHardware
         private void ArbolSensores_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (e.NewValue is HardwareSensorItem selectedItem)
-            {
+            {                
                 // Handle the selected item here
-                MessageBox.Show($"Selected: {selectedItem.HardwareName} - {selectedItem.SensorName}");
+                MessageBox.Show($"Selected: {selectedItem}");
             }
         }
+
+        
         public class HardwareSensorItem
         {
             public string HardwareName { get; set; } = "";
@@ -39,19 +42,16 @@ namespace MonitorHardware
         public MainWindow()
         {
             hardwareSensors hardware = new hardwareSensors();
-            // valueSensors values = new valueSensors();
             InitializeComponent();
 
             List<(string typeHardware, string nameHardware, string nameSensor, string typeSensor)> data = hardware.GetSensors();
 
-            
             foreach (var (typeHardware, nameHardware, nameSensor, typeSensor) in data)
             {
-                bool contH = HardwareSensorTreeView.Items.Cast<HardwareSensorItem>().Any(item => item.HardwareName == typeHardware);
-                // bool contH = Hardware.Contains(typeHardware);
+                bool contH = HardwareSensorTreeView.Items.Cast<HardwareSensorItem>().Any(item => item.HardwareName == nameHardware);
                 if (contH is false)
                 {
-                    HardwareSensorItem hardwareItem = new HardwareSensorItem { HardwareName = typeHardware };
+                    HardwareSensorItem hardwareItem = new HardwareSensorItem { HardwareName = nameHardware };
                     HardwareSensorTreeView.Items.Add(hardwareItem);
                 }
                 
@@ -61,20 +61,13 @@ namespace MonitorHardware
                 // bool contS = Children.Contains(nameHardware);
                 if (contS is false)
                 {
-                    HardwareSensorItem hardwareItem = HardwareSensorTreeView.Items.Cast<HardwareSensorItem>().FirstOrDefault(item => item.HardwareName == typeHardware);
+                    HardwareSensorItem hardwareItem = HardwareSensorTreeView.Items.Cast<HardwareSensorItem>().FirstOrDefault(item => item.HardwareName == nameHardware);
                     if (hardwareItem != null)
                     {
-                        hardwareItem.Children.Add(new HardwareSensorItem { HardwareName = $"{nameSensor} ({typeSensor})" });
-                        // hardwareItem.Children.Add(new HardwareSensorItem { SensorName = typeSensor });
+                        HardwareSensorItem sensorItem = new HardwareSensorItem { HardwareName = $"{nameSensor} ({typeSensor})" };
+                        hardwareItem.Children.Add(sensorItem);
                     }
-
-                    // HardwareSensorItem.Children.Add(new HardwareSensorItem { SensorName = typeSensor });
                 }
-                
-                // Sensores = new List<string>
-                // {
-                //     $"{typeHardware}"
-                // };
             }
             DataContext = this;
         }
