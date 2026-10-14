@@ -47,7 +47,29 @@ namespace MonitorHardware
             if (sender is CheckBox checkBox &&
                 ItemsControl.ContainerFromElement(HardwareSensorTreeView, checkBox) is TreeViewItem treeViewItem)
             {
+                string? texto = checkBox.Content?.ToString();
+                if (texto != "")
+                {
+                    hardwareSensors hardware = new hardwareSensors();
+                    List<(string typeHardware, string nameHardware, string nameSensor, string typeSensor)> data = hardware.GetSensors();
+
+                    bool isSelected = data.Any(item => item.nameHardware == texto);
+                    if (isSelected)
+                    {
+                        foreach(var i in checkBox.Parent is StackPanel parentPanel ? parentPanel.Children : null)
+                        {
+                            if (i is CheckBox childCheckBox)
+                            {
+                                childCheckBox.IsChecked = true;
+                            }
+                        }
+                    }
+                }
                 // Clicking the CheckBox does not select its TreeViewItem automatically.
+                if (treeViewItem.IsSelected == true)
+                {
+                    treeViewItem.IsSelected = false;
+                }
                 treeViewItem.IsSelected = true;
             }
         }
