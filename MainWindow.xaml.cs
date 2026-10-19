@@ -41,14 +41,27 @@ namespace MonitorHardware
                     {
                         // MessageBox.Show($"Hardware: {hardwareItem.HardwareName} está seleccionado.");
                         // selectedSensors.Add(hardwareItem.HardwareName);
-
+                        sensorConfigurations.Add(new ListConfig
+                        {
+                            TypeHardware = hardwareItem.HardwareName.Split(' ')[0],
+                            NameHardware = hardwareItem.HardwareName,
+                            NameSensor = "",
+                            TypeSensor = ""
+                        });
                     }
 
                     foreach (var child in hardwareItem.Children)
                     {
                         if (child.IsChecked)
                         {
-                            selectedSensors.Add(child.SensorName);
+                            // selectedSensors.Add(child.SensorName);
+                            sensorConfigurations.Add(new ListConfig
+                            {
+                                TypeHardware = hardwareItem.HardwareName.Split(' ')[0],
+                                NameHardware = hardwareItem.HardwareName,
+                                NameSensor = child.SensorName,
+                                TypeSensor = ""
+                            });
                         }
                     }
                 }
