@@ -29,5 +29,7 @@
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
+        <Button Name="button" Content="SELECT" Click="button_Click" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"/>
+        <TextBlock Name="SelectedSensorTextBlock" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
     </Grid>
 </Window>

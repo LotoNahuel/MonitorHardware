@@ -1,45 +1,61 @@
-﻿using System.Text;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using exportHardwareSensors;
-using exportValueHardwareSensors;
-using LibreHardwareMonitor.Hardware;
+using saveJson;
 
 namespace MonitorHardware
 {
-
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
-    public partial class MainWindow :  Window
+    public partial class MainWindow : Window
     {
         public List<string> Hardware { get; } = new();
-        // public List<string> Children { get; } = new();
+        hardwareSensors hardware = new hardwareSensors();
+
         private void ArbolSensores_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            hardwareSensors hardware = new hardwareSensors();
-            List<(string typeHardware, string nameHardware, string nameSensor, string typeSensor)> data = hardware.GetSensors();
-            if (e.NewValue is HardwareSensorItem selectedItem)
+            if (e.NewValue is not HardwareSensorItem selectedItem)
+                return;
+
+            string tipo = selectedItem.Children.Count > 0 ? "Padre" : "Hijo";
+            // MessageBox.Show($"Select Item: {tipo}");
+            // if (tipo == "Padre")
+            // {
+            //     MessageBox.Show($"Seleccionado: {selectedItem.HardwareName}\nTipo: {tipo}\nContiene {selectedItem.Children.Count} sensores.");
+            // }
+            // else
+            // {
+            //     MessageBox.Show($"Seleccionado: {selectedItem.SensorName}\nTipo: {tipo}");
+            // }
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> selectedSensors = new List<string>();
+            List<ListConfig> sensorConfigurations = new List<ListConfig>();
+
+            foreach (var item in HardwareSensorTreeView.Items)
             {
-                bool isSelected = data.Any(item => item.nameHardware == selectedItem.HardwareName);
-                // foreach (var (typeHardware, nameHardware, nameSensor, typeSensor) in data)
-                // {
-                    if (isSelected)
+                if (item is HardwareSensorItem hardwareItem)
+                {
+                    if (hardwareItem.IsChecked)
                     {
-                        MessageBox.Show($"Selected: {selectedItem.HardwareName}");
+                        // MessageBox.Show($"Hardware: {hardwareItem.HardwareName} está seleccionado.");
+                        // selectedSensors.Add(hardwareItem.HardwareName);
+
                     }
-                    // Handle the selected item here
-                // MessageBox.Show($"Selected: {selectedItem.HardwareName} {selectedItem.SensorName}");
-                // }
-                
+
+                    foreach (var child in hardwareItem.Children)
+                    {
+                        if (child.IsChecked)
+                        {
+                            selectedSensors.Add(child.SensorName);
+                        }
+                    }
+                }
             }
+            // SelectedSensorTextBlock.Text = string.Join(", ", selectedSensors);
+            // MessageBox.Show($"Sensores seleccionados: {string.Join(", ", selectedSensors)}");
+            // List<ListConfig> sensorConfigurations = new List<ListConfig>();
         }
 
         private void SensorCheckBox_Click(object sender, RoutedEventArgs e)
@@ -47,75 +63,83 @@ namespace MonitorHardware
             if (sender is CheckBox checkBox &&
                 ItemsControl.ContainerFromElement(HardwareSensorTreeView, checkBox) is TreeViewItem treeViewItem)
             {
-                string? texto = checkBox.Content?.ToString();
-                if (texto != "")
+                if (sender is CheckBox checkBox2 && checkBox2.DataContext is HardwareSensorItem sensorItem)
                 {
-                    hardwareSensors hardware = new hardwareSensors();
-                    List<(string typeHardware, string nameHardware, string nameSensor, string typeSensor)> data = hardware.GetSensors();
-
-                    bool isSelected = data.Any(item => item.nameHardware == texto);
-                    if (isSelected)
+                    // Actualizar el estado de IsChecked en el objeto HardwareSensorItem.
+                    // if (sensorItem.IsChecked != checkBox2.IsChecked)
+                    MessageBox.Show($"Sensor: {sensorItem.SensorName}\nIsChecked: {sensorItem.IsChecked}");
+                    if (sensorItem.IsChecked)
                     {
-                        foreach(var i in checkBox.Parent is StackPanel parentPanel ? parentPanel.Children : null)
-                        {
-                            if (i is CheckBox childCheckBox)
-                            {
-                                childCheckBox.IsChecked = true;
-                            }
-                        }
+                        treeViewItem.IsSelected = false;
+                    }
+                    else
+                    {
+                        treeViewItem.IsSelected = true; 
                     }
                 }
-                // Clicking the CheckBox does not select its TreeViewItem automatically.
-                if (treeViewItem.IsSelected == true)
-                {
-                    treeViewItem.IsSelected = false;
-                }
-                treeViewItem.IsSelected = true;
+                
             }
+            
         }
 
-        
-        public class HardwareSensorItem
+        public class HardwareSensorItem : INotifyPropertyChanged
         {
+            private bool _isChecked;
+
             public string HardwareName { get; set; } = "";
             public string SensorName { get; set; } = "";
             public List<HardwareSensorItem> Children { get; set; } = new();
+
+            public bool IsChecked
+            {
+                get => _isChecked;
+                set
+                {
+                    if (_isChecked == value)
+                        return;
+
+                    _isChecked = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsChecked)));
+
+                    foreach (HardwareSensorItem child in Children)
+                        child.IsChecked = value;
+                }
+            }
+
+            public event PropertyChangedEventHandler? PropertyChanged;
         }
 
         public MainWindow()
         {
-            hardwareSensors hardware = new hardwareSensors();
+            hardware = new hardwareSensors();
             InitializeComponent();
 
             List<(string typeHardware, string nameHardware, string nameSensor, string typeSensor)> data = hardware.GetSensors();
 
             foreach (var (typeHardware, nameHardware, nameSensor, typeSensor) in data)
             {
-                bool contH = HardwareSensorTreeView.Items.Cast<HardwareSensorItem>().Any(item => item.HardwareName == nameHardware);
-                if (contH is false)
-                {
-                    HardwareSensorItem hardwareItem = new HardwareSensorItem { HardwareName = nameHardware };
-                    HardwareSensorTreeView.Items.Add(hardwareItem);
-                }
-                
+                bool contH = HardwareSensorTreeView.Items.Cast<HardwareSensorItem>()
+                    .Any(item => item.HardwareName == nameHardware);
+                if (!contH)
+                    HardwareSensorTreeView.Items.Add(new HardwareSensorItem { HardwareName = nameHardware });
+
                 bool contS = HardwareSensorTreeView.Items.Cast<HardwareSensorItem>()
                     .SelectMany(item => item.Children)
                     .Any(child => child.SensorName == nameSensor);
-                // bool contS = Children.Contains(nameHardware);
-                if (contS is false)
+
+                if (!contS)
                 {
-                    HardwareSensorItem hardwareItem = HardwareSensorTreeView.Items.Cast<HardwareSensorItem>().FirstOrDefault(item => item.HardwareName == nameHardware);
-                    if (hardwareItem != null)
+                    HardwareSensorItem? hardwareItem = HardwareSensorTreeView.Items.Cast<HardwareSensorItem>()
+                        .FirstOrDefault(item => item.HardwareName == nameHardware);
+
+                    hardwareItem?.Children.Add(new HardwareSensorItem
                     {
-                        HardwareSensorItem sensorItem = new HardwareSensorItem
-                        {
-                            HardwareName = $"{nameSensor} ({typeSensor})",
-                            SensorName = nameSensor
-                        };
-                        hardwareItem.Children.Add(sensorItem);
-                    }
+                        HardwareName = $"{nameSensor} ({typeSensor})",
+                        SensorName = nameSensor
+                    });
                 }
             }
+
             DataContext = this;
         }
     }
