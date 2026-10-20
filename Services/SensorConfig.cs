@@ -41,7 +41,7 @@ namespace saveJson
 {
     public class ListConfig
     {
-        public string TypeHardware {get; set;} = "";
+        // public string TypeHardware {get; set;} = "";
         public string NameHardware {get; set;} = "";
         public string NameSensor {get; set;} = "";
         public string TypeSensor {get; set;} = "";

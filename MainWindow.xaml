@@ -8,8 +8,8 @@
         Title="MainWindow" Height="450" Width="350">
     <Grid>
         <!-- <Button Name="button" Click="button_Click">Click Me!</Button> -->
-        <TreeView Name="HardwareSensorTreeView"
-            SelectedItemChanged="ArbolSensores_SelectedItemChanged">
+        <!-- SelectedItemChanged="ArbolSensores_SelectedItemChanged" -->
+        <TreeView Name="HardwareSensorTreeView">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Children}">
                     <StackPanel Orientation="Horizontal">

@@ -11,44 +11,43 @@ namespace MonitorHardware
         public List<string> Hardware { get; } = new();
         hardwareSensors hardware = new hardwareSensors();
 
-        private void ArbolSensores_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            if (e.NewValue is not HardwareSensorItem selectedItem)
-                return;
+        // private void ArbolSensores_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        // {
+        //     if (e.NewValue is not HardwareSensorItem selectedItem)
+        //         return;
 
-            string tipo = selectedItem.Children.Count > 0 ? "Padre" : "Hijo";
-            // MessageBox.Show($"Select Item: {tipo}");
-            // if (tipo == "Padre")
-            // {
-            //     MessageBox.Show($"Seleccionado: {selectedItem.HardwareName}\nTipo: {tipo}\nContiene {selectedItem.Children.Count} sensores.");
-            // }
-            // else
-            // {
-            //     MessageBox.Show($"Seleccionado: {selectedItem.SensorName}\nTipo: {tipo}");
-            // }
-        }
+        //     string tipo = selectedItem.Children.Count > 0 ? "Padre" : "Hijo";
+        //     // MessageBox.Show($"Select Item: {tipo}");
+        //     // if (tipo == "Padre")
+        //     // {
+        //     //     MessageBox.Show($"Seleccionado: {selectedItem.HardwareName}\nTipo: {tipo}\nContiene {selectedItem.Children.Count} sensores.");
+        //     // }
+        //     // else
+        //     // {
+        //     //     MessageBox.Show($"Seleccionado: {selectedItem.SensorName}\nTipo: {tipo}");
+        //     // }
+        // }
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private async void button_Click(object sender, RoutedEventArgs e)
         {
-            List<string> selectedSensors = new List<string>();
             List<ListConfig> sensorConfigurations = new List<ListConfig>();
 
             foreach (var item in HardwareSensorTreeView.Items)
             {
                 if (item is HardwareSensorItem hardwareItem)
                 {
-                    if (hardwareItem.IsChecked)
-                    {
-                        // MessageBox.Show($"Hardware: {hardwareItem.HardwareName} está seleccionado.");
-                        // selectedSensors.Add(hardwareItem.HardwareName);
-                        sensorConfigurations.Add(new ListConfig
-                        {
-                            TypeHardware = hardwareItem.HardwareName.Split(' ')[0],
-                            NameHardware = hardwareItem.HardwareName,
-                            NameSensor = "",
-                            TypeSensor = ""
-                        });
-                    }
+                    // if (hardwareItem.IsChecked)
+                    // {
+                    //     // MessageBox.Show($"Hardware: {hardwareItem.HardwareName} está seleccionado.");
+                    //     selectedSensors.Add(hardwareItem.HardwareName);
+                    //     // sensorConfigurations.Add(new ListConfig
+                    //     // {
+                    //     //     TypeHardware = hardwareItem.HardwareName.Split(' ')[0],
+                    //     //     NameHardware = hardwareItem.HardwareName,
+                    //     //     NameSensor = "",
+                    //     //     TypeSensor = ""
+                    //     // });
+                    // }
 
                     foreach (var child in hardwareItem.Children)
                     {
@@ -57,15 +56,18 @@ namespace MonitorHardware
                             // selectedSensors.Add(child.SensorName);
                             sensorConfigurations.Add(new ListConfig
                             {
-                                TypeHardware = hardwareItem.HardwareName.Split(' ')[0],
                                 NameHardware = hardwareItem.HardwareName,
                                 NameSensor = child.SensorName,
-                                TypeSensor = ""
+                                TypeSensor = child.HardwareName.Split('(').Length > 1 ? child.HardwareName.Split('(')[1].TrimEnd(')') : ""
                             });
                         }
                     }
                 }
             }
+
+            await configurationMonitor.SaveConfiguration(sensorConfigurations);
+
+            MessageBox.Show("Configuración guardada en sensor-config.json.");
             // SelectedSensorTextBlock.Text = string.Join(", ", selectedSensors);
             // MessageBox.Show($"Sensores seleccionados: {string.Join(", ", selectedSensors)}");
             // List<ListConfig> sensorConfigurations = new List<ListConfig>();
@@ -80,7 +82,7 @@ namespace MonitorHardware
                 {
                     // Actualizar el estado de IsChecked en el objeto HardwareSensorItem.
                     // if (sensorItem.IsChecked != checkBox2.IsChecked)
-                    MessageBox.Show($"Sensor: {sensorItem.SensorName}\nIsChecked: {sensorItem.IsChecked}");
+                    // MessageBox.Show($"Sensor: {sensorItem.SensorName}\nIsChecked: {sensorItem.IsChecked}");
                     if (sensorItem.IsChecked)
                     {
                         treeViewItem.IsSelected = false;
@@ -98,7 +100,7 @@ namespace MonitorHardware
         public class HardwareSensorItem : INotifyPropertyChanged
         {
             private bool _isChecked;
-
+            
             public string HardwareName { get; set; } = "";
             public string SensorName { get; set; } = "";
             public List<HardwareSensorItem> Children { get; set; } = new();
