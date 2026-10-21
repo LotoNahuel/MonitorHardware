@@ -1,7 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.IO;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using exportHardwareSensors;
+using System.Text.Json;
 using saveJson;
 
 namespace MonitorHardware
@@ -72,6 +75,20 @@ namespace MonitorHardware
             // MessageBox.Show($"Sensores seleccionados: {string.Join(", ", selectedSensors)}");
             // List<ListConfig> sensorConfigurations = new List<ListConfig>();
         }
+        
+        private bool changeIsChecked(string sensor)
+        {   
+            string filePath = Path.Combine(AppContext.BaseDirectory, "sensor-config.json");
+            if (File.Exists(filePath))
+            {
+                string jsonString = File.ReadAllText(filePath);
+                List<ListConfig> sensorConfigurations = JsonSerializer.Deserialize<List<ListConfig>>(jsonString) ?? new List<ListConfig>();
+
+                if (!sensorConfigurations.Any(s => s.NameSensor == sensor))     return true;
+                else    return false;
+            }
+            else    return false;
+        }
 
         private void SensorCheckBox_Click(object sender, RoutedEventArgs e)
         {
@@ -104,7 +121,6 @@ namespace MonitorHardware
             public string HardwareName { get; set; } = "";
             public string SensorName { get; set; } = "";
             public List<HardwareSensorItem> Children { get; set; } = new();
-
             public bool IsChecked
             {
                 get => _isChecked;
@@ -117,12 +133,14 @@ namespace MonitorHardware
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsChecked)));
 
                     foreach (HardwareSensorItem child in Children)
+                    {
                         child.IsChecked = value;
+                    }
                 }
             }
 
             public event PropertyChangedEventHandler? PropertyChanged;
-        }
+        };
 
         public MainWindow()
         {
