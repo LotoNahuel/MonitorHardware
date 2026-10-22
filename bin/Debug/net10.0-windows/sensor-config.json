@@ -1,0 +1,217 @@
+[
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core #1 Thread #1",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core #1 Thread #2",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core #2 Thread #1",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core #2 Thread #2",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core #3 Thread #1",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core #3 Thread #2",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core #4 Thread #1",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core #4 Thread #2",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core #5",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core #6",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core #7",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core #8",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Total",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core Max",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "Core Max",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "Core Average",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "P-Core #1",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "P-Core #2",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "P-Core #3",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "P-Core #4",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "E-Core #1",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "E-Core #2",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "E-Core #3",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "E-Core #4",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Package",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "P-Core #1 Distance to TjMax",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "P-Core #2 Distance to TjMax",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "P-Core #3 Distance to TjMax",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "P-Core #4 Distance to TjMax",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "E-Core #1 Distance to TjMax",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "E-Core #2 Distance to TjMax",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "E-Core #3 Distance to TjMax",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "E-Core #4 Distance to TjMax",
+    "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Cores",
+    "TypeSensor": "Power"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Memory",
+    "TypeSensor": "Power"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Platform",
+    "TypeSensor": "Power"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "CPU Core",
+    "TypeSensor": "Voltage"
+  },
+  {
+    "NameHardware": "13th Gen Intel Core i5-13420H",
+    "NameSensor": "Bus Speed",
+    "TypeSensor": "Clock"
+  },
+  {
+    "NameHardware": "Intel(R) UHD Graphics",
+    "NameSensor": "GPU Core",
+    "TypeSensor": "Clock"
+  },
+  {
+    "NameHardware": "Intel(R) UHD Graphics",
+    "NameSensor": "GPU Power",
+    "TypeSensor": "Power"
+  },
+  {
+    "NameHardware": "Intel(R) UHD Graphics",
+    "NameSensor": "D3D Shared Memory Used",
+    "TypeSensor": "SmallData"
+  },
+  {
+    "NameHardware": "Intel(R) UHD Graphics",
+    "NameSensor": "D3D 3D",
+    "TypeSensor": "Load"
+  },
+  {
+    "NameHardware": "Intel(R) UHD Graphics",
+    "NameSensor": "D3D Overlay",
+    "TypeSensor": "Load"
+  }
+]
