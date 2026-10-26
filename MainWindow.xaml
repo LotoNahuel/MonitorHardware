@@ -31,5 +31,8 @@
         </TreeView>
         <Button Name="button" Content="SELECT" Click="button_Click" Width="100" Height="30" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"/>
         <TextBlock Name="SelectedSensorTextBlock" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+        <Button Content="Open Widget" Click="OpenWidget_Click" Padding="10,5" Width="100" Height="30" VerticalAlignment="Top" Margin="10"/>
+        <Button Content="Close Widget" Click="CloseWidget" Padding="10,5" Width="100" Height="30" Margin="10"/>
+        <!-- <TextBlock Name="OpenWidget" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left"/> -->
     </Grid>
 </Window>

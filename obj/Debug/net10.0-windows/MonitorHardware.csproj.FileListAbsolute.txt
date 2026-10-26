@@ -67,3 +67,5 @@ C:\Users\Loto_\Downloads\COSAS\PROGRAMACION\MonitorHardware\MonitorHardware\obj\
 C:\Users\Loto_\Downloads\COSAS\PROGRAMACION\MonitorHardware\MonitorHardware\obj\Debug\net10.0-windows\MonitorHardware.pdb
 C:\Users\Loto_\Downloads\COSAS\PROGRAMACION\MonitorHardware\MonitorHardware\obj\Debug\net10.0-windows\MonitorHardware.genruntimeconfig.cache
 C:\Users\Loto_\Downloads\COSAS\PROGRAMACION\MonitorHardware\MonitorHardware\obj\Debug\net10.0-windows\ref\MonitorHardware.dll
+C:\Users\Loto_\Downloads\COSAS\PROGRAMACION\MonitorHardware\MonitorHardware\obj\Debug\net10.0-windows\WidgetWindow.baml
+C:\Users\Loto_\Downloads\COSAS\PROGRAMACION\MonitorHardware\MonitorHardware\obj\Debug\net10.0-windows\WidgetWindow.g.cs

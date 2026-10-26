@@ -7,6 +7,7 @@ using exportHardwareSensors;
 using System.Text.Json;
 using saveJson;
 using System.Security.Cryptography.X509Certificates;
+using OverlayMonitorHardware;
 
 namespace MonitorHardware
 {
@@ -168,6 +169,34 @@ namespace MonitorHardware
             
             DataContext = this;
             Loaded += MainWindow_Loaded;
+        }
+
+        private WidgetWindow? widgetWindow;
+    
+        private void OpenWidget_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            if ( widgetWindow == null || !widgetWindow.IsLoaded )
+            {
+                widgetWindow = new WidgetWindow();
+                widgetWindow.Show();
+            }
+            else
+            {
+                widgetWindow.Activate();
+            }
+        }
+
+        private void CloseWidget(
+            object sender,
+            RoutedEventArgs e)
+        {
+            if ( widgetWindow != null && widgetWindow.IsLoaded )
+            {
+                widgetWindow.Close();
+                widgetWindow = null;
+            }
         }
     }
 }
