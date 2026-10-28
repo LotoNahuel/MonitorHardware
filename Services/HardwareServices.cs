@@ -1,4 +1,7 @@
+using System.Linq;
 using System.Reflection.Metadata;
+using System.Windows;
+using exportHardwareSensors;
 using LibreHardwareMonitor.Hardware;
 using LibreHardwareMonitor.Interop.PowerMonitor;
 
@@ -99,22 +102,29 @@ namespace exportValueHardwareSensors
             computer.Open();
             computer.Accept(new UpdateVisitor());
 
-            Console.WriteLine($"Data import.cs: {dataSensor}");
-
             foreach (IHardware hardware in computer.Hardware)
             {
                 hardware.Update();
-                foreach (ISensor sensor in hardware.Sensors)
+
+                ISensor? valor = hardware.Sensors.FirstOrDefault(p => p.Name == dataSensor);
+
+                if (valor != null)
                 {
-                    if (sensor.Name == dataSensor)
-                    {
-                        if (sensor.Value.HasValue)
-                        {
-                            string valorSensor = $"{sensor.Value:F1}";
-                            return valorSensor;
-                        }
-                    }
+                    return valor.Value?.ToString("F1") ?? "N/A";
+                    // return valor.Name;
                 }
+
+                // foreach (ISensor sensor in hardware.Sensors)
+                // {
+                //     if (sensor.Name == dataSensor)
+                //     {
+                //         if (sensor.Value.HasValue)
+                //         {
+                //             string valorSensor = $"{sensor.Value:F1}";
+                //             return valorSensor;
+                //         }
+                //     }
+                // }
             }
             return "N/A";
         }

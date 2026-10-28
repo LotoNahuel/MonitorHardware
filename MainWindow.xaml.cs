@@ -179,11 +179,12 @@ namespace MonitorHardware
         {
             if ( widgetWindow == null || !widgetWindow.IsLoaded )
             {
-                widgetWindow = new WidgetWindow();
+                widgetWindow = new WidgetWindow(true);
                 widgetWindow.Show();
             }
             else
             {
+                widgetWindow = new WidgetWindow(false);
                 widgetWindow.Activate();
             }
         }
