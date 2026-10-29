@@ -23,5 +23,15 @@
     "NameHardware": "11th Gen Intel Core i5-11400",
     "NameSensor": "Core Average",
     "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "Virtual Memory",
+    "NameSensor": "Memory Used",
+    "TypeSensor": "Data"
+  },
+  {
+    "NameHardware": "NVIDIA GeForce RTX 3060 Ti",
+    "NameSensor": "GPU Core",
+    "TypeSensor": "Temperature"
   }
 ]

@@ -13,13 +13,12 @@ using System.Windows.Threading;
 using LibreHardwareMonitor.Hardware;
 using LibreHardwareMonitor.Interop.PowerMonitor;
 using System.Runtime.CompilerServices;
+using System.Configuration;
 
 namespace OverlayMonitorHardware
 {
     public class OverlayDisplaySensorItem : INotifyPropertyChanged
     {
-        // public string NameSensor { get; set; } = "";
-        // public string ValueSensor { get; set; } = "";
         public string NameSensor { get; set; } = "";
 
         private string _valueSensor = "";
@@ -60,53 +59,6 @@ namespace OverlayMonitorHardware
             public string NameSensor { get; set; }
             public string TypeSensor { get; set; }
         }
-
-        // public async Task<List<SensorJson>> Sensor()
-        // {
-        //     string filePath = Path.Combine(AppContext.BaseDirectory,"sensor-config.json");
-
-        //     // if (File.Exists(filePath))
-        //     // {
-        //         string jsonString = File.ReadAllText(filePath);
-        //         List<SensorJson> Sensors = JsonSerializer.Deserialize<List<SensorJson>>(jsonString);
-
-        //         if (Sensors != null)
-        //         {
-        //             foreach( var sensor in Sensors)
-        //             {
-                        
-        //             }
-        //         }
-        //         else
-        //         {
-        //             return null;
-        //         }
-        //     // }
-        // }
-        // public string RefreshValues()
-        // {
-        //     // List<OverlayDisplaySensorItem> name = new List<OverlayDisplaySensorItem>();
-        //     valueSensors values = new valueSensors();
-        //     string filePath = Path.Combine(AppContext.BaseDirectory,"sensor-config.json");
-
-        //     string jsonString = File.ReadAllText(filePath);
-        //     List<SensorJson> Sensors = JsonSerializer.Deserialize<List<SensorJson>>(jsonString) ?? new List<SensorJson>();
-        //     string valueSensor = "";
-        //     foreach (var sensor in Sensors)
-        //     {
-        //         valueSensor = values.GetValueSensors(sensor.NameSensor);
-        //         return valueSensor;
-        //         // SensorValues.Add(new OverlayDisplaySensorItem
-        //         // {
-        //         //     ValueSensor = $"{values.GetValueSensors(sensor.NameSensor)?.ToString() ?? "N/A"}"
-        //         // });
-        //     }
-        //     return "Vacio";
-        // }
-        // private async void WidgetWindow_Loaded(object sender, RoutedEventArgs e)
-        // {
-        //     await Task.Run(() => RefreshValues());
-        // }
         private string TSensor(string typeSensor)
         {
             switch (typeSensor)
@@ -126,23 +78,37 @@ namespace OverlayMonitorHardware
                 default:
                     return "";
             }
-            // return type;
         }
-        private void ActualizarSensores(bool bol, string typeSensor)
+        // List<string> miLista = new List<string>();
+        private void ActualizarSensores(bool bol, List<string> miLista)
         {
-            if (bol != false || typeSensor != "")
+            if (bol != false)
             {
-                string type = "";
-                foreach (var sensor in SensorValues)
-                {
-                    type = TSensor(typeSensor);
-                    string valor = $"{values.GetValueSensors(sensor.NameSensor)} {type}";
+                // foreach (var sensor in SensorValues)
+                // {
+                //     var sensorGet = values.GetValueSensors(sensor.NameSensor);
+                //     string valor = $"{sensorGet.value} {TSensor(sensorGet.type)}";
 
+                //     sensor.ValueSensor = valor;
+                // }
+                int i = 0;
+                var sensorGet = values.GetValueSensors(miLista);
+                while (i < SensorValues.Count)
+                {
+                    var sensor = SensorValues[i];
+                    string valor = $"{sensorGet[i].value} {TSensor(sensorGet[i].type)}";
+                    
                     sensor.ValueSensor = valor;
+
+                    i += 1;
                 }
             }
         }
         private readonly DispatcherTimer timer = new();
+        public void StopTimer()
+        {
+            timer.Stop();
+        }
         public WidgetWindow(bool booleano)
         {
             if (booleano != false)
@@ -151,36 +117,32 @@ namespace OverlayMonitorHardware
                 DataContext = this;
 
                 List<OverlayDisplaySensorItem> name = new List<OverlayDisplaySensorItem>();
+                
                 string filePath = Path.Combine(AppContext.BaseDirectory,"sensor-config.json");
                 string jsonString = File.ReadAllText(filePath);
                 List<SensorJson> Sensors = JsonSerializer.Deserialize<List<SensorJson>>(jsonString) ?? new List<SensorJson>();
                 
-                string type = "";
-                string typeSensor = "";
+                List<string> miLista = new List<string>();
                 if (Sensors != null)
                 {
                     foreach (var sensor in Sensors)
                     {
-                        type = TSensor(sensor.TypeSensor);
-                        typeSensor = $"{sensor.TypeSensor}";
-                        string valueSensor = values.GetValueSensors(sensor.NameSensor);
+                        miLista.Add(sensor.NameSensor);
+                    }
+                    var sensorGet = values.GetValueSensors(miLista);
+                    for (int i = 0; i < Sensors.Count && i < sensorGet.Count; i++)
+                    {
+                        var sensor = Sensors[i];
                         SensorValues.Add(new OverlayDisplaySensorItem
                         {
                             NameSensor = $"{sensor.NameSensor}",
-                            ValueSensor = $"{valueSensor} {type}"
+                            ValueSensor = $"{sensorGet[i].value} {TSensor(sensorGet[i].type)}"
                         });
-                        // Loaded += WidgetWindow_Loaded;
                     }
                 }
-                timer.Interval = TimeSpan.FromSeconds(0.15);
-                timer.Tick += (sender, e) => ActualizarSensores(true, typeSensor);
+                timer.Interval = TimeSpan.FromSeconds(0.5);
+                timer.Tick += (sender, e) => ActualizarSensores(true, miLista);
                 timer.Start();
-            }
-            else
-            {
-                timer.Interval = TimeSpan.FromHours(1);
-                timer.Tick += (sender, e) => ActualizarSensores(false, "");
-                timer.Stop();
             }
         }
     }
