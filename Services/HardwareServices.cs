@@ -109,13 +109,13 @@ namespace exportValueHardwareSensors
 
             computer.Open();
             computer.Accept(new UpdateVisitor());
-
+            var ListTuple = new List<(string, string)>();
             foreach (IHardware hardware in computer.Hardware)
             {
                 hardware.Update();
 
                 int i = 0;
-                var ListTuple = new List<(string, string)>();
+                
                 while (i < dataSensor.Count)
                 {
                     ISensor? valor = hardware.Sensors.FirstOrDefault(p => p.Name == dataSensor[i]);
@@ -127,9 +127,10 @@ namespace exportValueHardwareSensors
                     }
                     i += 1;
                 }
-                return ListTuple;
+                
             }
-            return new List<(string value, string type)>();
+            // return new List<(string value, string type)>();
+            return ListTuple;
         }
     }
 }

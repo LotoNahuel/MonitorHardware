@@ -51,7 +51,7 @@ namespace OverlayMonitorHardware {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MonitorHardware;V1.0.0.0;component/widgetwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MonitorHardware;component/widgetwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\WidgetWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

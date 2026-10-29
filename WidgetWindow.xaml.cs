@@ -73,24 +73,26 @@ namespace OverlayMonitorHardware
                     return "V";
                 case "Clock":
                     return "MHz";
-                case "SmallData":
+                case "Data":
                     return "GB";
+                case "SmallData":
+                    return "MB";
+                case "Timing":
+                    return "ms";
+                case "Level":
+                    return "%";
+                case "Factor":
+                    return "";
+                case "Throughput":
+                    return "MB/s";
                 default:
                     return "";
             }
         }
-        // List<string> miLista = new List<string>();
         private void ActualizarSensores(bool bol, List<string> miLista)
         {
             if (bol != false)
             {
-                // foreach (var sensor in SensorValues)
-                // {
-                //     var sensorGet = values.GetValueSensors(sensor.NameSensor);
-                //     string valor = $"{sensorGet.value} {TSensor(sensorGet.type)}";
-
-                //     sensor.ValueSensor = valor;
-                // }
                 int i = 0;
                 var sensorGet = values.GetValueSensors(miLista);
                 while (i < SensorValues.Count)
@@ -125,12 +127,19 @@ namespace OverlayMonitorHardware
                 List<string> miLista = new List<string>();
                 if (Sensors != null)
                 {
-                    foreach (var sensor in Sensors)
+                    // foreach (var sensor in Sensors)
+                    int j = 0;
+                    while (j < Sensors.Count)
                     {
+                        var sensor = Sensors[j];
                         miLista.Add(sensor.NameSensor);
+                        j += 1;
                     }
+                    
                     var sensorGet = values.GetValueSensors(miLista);
-                    for (int i = 0; i < Sensors.Count && i < sensorGet.Count; i++)
+                    // for (int i = 0; i < Sensors.Count && i < sensorGet.Count; i++)
+                    int i = 0;
+                    while (i < Sensors.Count)
                     {
                         var sensor = Sensors[i];
                         SensorValues.Add(new OverlayDisplaySensorItem
@@ -138,9 +147,10 @@ namespace OverlayMonitorHardware
                             NameSensor = $"{sensor.NameSensor}",
                             ValueSensor = $"{sensorGet[i].value} {TSensor(sensorGet[i].type)}"
                         });
+                        i += 1;
                     }
                 }
-                timer.Interval = TimeSpan.FromSeconds(0.5);
+                timer.Interval = TimeSpan.FromSeconds(0.1);
                 timer.Tick += (sender, e) => ActualizarSensores(true, miLista);
                 timer.Start();
             }
