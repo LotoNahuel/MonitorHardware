@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Windows;
+using System.Windows.Automation.Peers;
 using exportHardwareSensors;
 using LibreHardwareMonitor.Hardware;
 using LibreHardwareMonitor.Interop.PowerMonitor;
@@ -93,7 +94,7 @@ namespace exportValueHardwareSensors
 {
     public class valueSensors
     {
-        public List<(string value, string type)> GetValueSensors(List<string> dataSensor)
+        public List<(string name, string value, string type)> GetValueSensors(List<string> dataSensor)
         {
             Computer computer = new Computer
             {
@@ -109,7 +110,8 @@ namespace exportValueHardwareSensors
 
             computer.Open();
             computer.Accept(new UpdateVisitor());
-            var ListTuple = new List<(string, string)>();
+            var ListTuple = new List<(string, string, string)>();
+            // List <string> values = new();
             foreach (IHardware hardware in computer.Hardware)
             {
                 hardware.Update();
@@ -119,17 +121,33 @@ namespace exportValueHardwareSensors
                 while (i < dataSensor.Count)
                 {
                     ISensor? valor = hardware.Sensors.FirstOrDefault(p => p.Name == dataSensor[i]);
+                    
                     if (valor != null)
                     {
-                        ListTuple.Add(($"{valor.Value?.ToString("F1") ?? "N/A"}", $"{valor.SensorType}"));
-                        // string value = $"{valor.Value?.ToString("F1") ?? "N/A"}";
-                        // string type = $"{valor.SensorType}";
+                        int indice = ListTuple.FindIndex(p => p.Item1 == valor.Name);
+                        // MessageBox.Show($"{namme.Item1} \n {valor.Name}");
+                        // namme.Item1 = valor.Name;
+                        if (indice != -1)
+                        {
+                            ListTuple[indice] = (
+                                valor.Name,
+                                valor.Value?.ToString("F2") ?? "N/A",
+                                valor.SensorType.ToString()
+                            );
+                        }
+                        else
+                        {
+                            ListTuple.Add(($"{valor.Name}", $"{valor.Value?.ToString("F2") ?? "N/A"}", $"{valor.SensorType}"));
+                        }
+                        
+                        // namme.Item3 = valor.SensorType;
+                        // values.Add($"{dataSensor[i]}: VALOR: {valor.Value?.ToString("F2")??"N/A"}\n");
+                        // ListTuple.Add(($"{valor.Name}", $"{valor.Value?.ToString("F2") ?? "N/A"}", $"{valor.SensorType}"));
                     }
                     i += 1;
                 }
-                
             }
-            // return new List<(string value, string type)>();
+            // MessageBox.Show(string.Join(", ", values));
             return ListTuple;
         }
     }

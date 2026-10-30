@@ -142,7 +142,7 @@ namespace MonitorHardware
             InitializeComponent();
 
             List<(string typeHardware, string nameHardware, string nameSensor, string typeSensor)> data = hardware.GetSensors();
-
+            
             foreach (var (typeHardware, nameHardware, nameSensor, typeSensor) in data)
             {
                 bool contH = HardwareSensorTreeView.Items.Cast<HardwareSensorItem>()

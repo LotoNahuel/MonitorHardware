@@ -85,6 +85,8 @@ namespace OverlayMonitorHardware
                     return "";
                 case "Throughput":
                     return "MB/s";
+                case "Fan":
+                    return "RPM";
                 default:
                     return "";
             }

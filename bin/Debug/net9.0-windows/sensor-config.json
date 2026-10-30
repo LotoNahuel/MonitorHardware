@@ -1,37 +1,22 @@
 [
   {
-    "NameHardware": "11th Gen Intel Core i5-11400",
-    "NameSensor": "CPU Core #1 Thread #1",
-    "TypeSensor": "Load"
-  },
-  {
-    "NameHardware": "11th Gen Intel Core i5-11400",
-    "NameSensor": "CPU Total",
-    "TypeSensor": "Load"
-  },
-  {
-    "NameHardware": "11th Gen Intel Core i5-11400",
-    "NameSensor": "CPU Core Max",
-    "TypeSensor": "Load"
-  },
-  {
-    "NameHardware": "11th Gen Intel Core i5-11400",
-    "NameSensor": "Core Max",
-    "TypeSensor": "Temperature"
-  },
-  {
-    "NameHardware": "11th Gen Intel Core i5-11400",
-    "NameSensor": "Core Average",
-    "TypeSensor": "Temperature"
-  },
-  {
     "NameHardware": "Virtual Memory",
     "NameSensor": "Memory Used",
     "TypeSensor": "Data"
   },
   {
+    "NameHardware": "Virtual Memory",
+    "NameSensor": "Memory",
+    "TypeSensor": "Load"
+  },
+  {
     "NameHardware": "NVIDIA GeForce RTX 3060 Ti",
     "NameSensor": "GPU Core",
     "TypeSensor": "Temperature"
+  },
+  {
+    "NameHardware": "NVIDIA GeForce RTX 3060 Ti",
+    "NameSensor": "GPU Memory",
+    "TypeSensor": "Clock"
   }
 ]
