@@ -11,16 +11,6 @@
   },
   {
     "NameHardware": "13th Gen Intel Core i5-13420H",
-    "NameSensor": "CPU Package",
-    "TypeSensor": "Temperature"
-  },
-  {
-    "NameHardware": "13th Gen Intel Core i5-13420H",
-    "NameSensor": "CPU Cores",
-    "TypeSensor": "Power"
-  },
-  {
-    "NameHardware": "13th Gen Intel Core i5-13420H",
     "NameSensor": "Bus Speed",
     "TypeSensor": "Clock"
   },
@@ -35,11 +25,6 @@
     "TypeSensor": "Temperature"
   },
   {
-    "NameHardware": "Samsung - M425R1GB4PB0-CWMOL (#0)",
-    "NameSensor": "Temperature Sensor Resolution",
-    "TypeSensor": "Temperature"
-  },
-  {
     "NameHardware": "Samsung - M425R1GB4PB0-CWMOD (#2)",
     "NameSensor": "DIMM #2",
     "TypeSensor": "Temperature"
@@ -51,17 +36,12 @@
   },
   {
     "NameHardware": "Intel(R) UHD Graphics",
-    "NameSensor": "GPU Power",
-    "TypeSensor": "Power"
+    "NameSensor": "D3D Shared Memory Used",
+    "TypeSensor": "SmallData"
   },
   {
     "NameHardware": "Intel(R) UHD Graphics",
     "NameSensor": "D3D 3D",
     "TypeSensor": "Load"
-  },
-  {
-    "NameHardware": "Micron MTFDKCD512QGN-1BN1AABLA",
-    "NameSensor": "Temperature #1",
-    "TypeSensor": "Temperature"
   }
 ]

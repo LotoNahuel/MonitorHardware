@@ -47,11 +47,20 @@ namespace OverlayMonitorHardware
         }
     }
 
+    public class OverlayDisplayHardwareGroup
+    {
+        public string NameHardware { get; set; } = "";
+        public ObservableCollection<OverlayDisplaySensorItem> Sensors { get; } = new();
+    }
+
     public partial class WidgetWindow : Window
     {
         valueSensors values = new valueSensors();
-        public ObservableCollection<OverlayDisplaySensorItem>
-            SensorValues { get; } = new();
+        public ObservableCollection<OverlayDisplayHardwareGroup>
+            HardwareGroups { get; } = new();
+
+        private readonly DispatcherTimer timer = new();
+        private readonly List<string> sensorNames = new();
 
         public class SensorJson
         {
@@ -91,28 +100,25 @@ namespace OverlayMonitorHardware
                     return "";
             }
         }
-        private void ActualizarSensores(bool bol, List<string> miLista)
+        private void ActualizarSensores()
         {
-            if (bol != false)
+            var sensorGet = values.GetValueSensors(sensorNames);
+            foreach (var group in HardwareGroups)
             {
-                int i = 0;
-                var sensorGet = values.GetValueSensors(miLista);
-                while (i < SensorValues.Count)
+                foreach (var sensor in group.Sensors)
                 {
-                    var sensor = SensorValues[i];
-                    string valor = $"{sensorGet[i].value} {TSensor(sensorGet[i].type)}";
-                    
-                    sensor.ValueSensor = valor;
-
-                    i += 1;
+                    var current = sensorGet.FirstOrDefault(value => value.name == sensor.NameSensor);
+                    if (current.name != null)
+                        sensor.ValueSensor = $"{current.value} {TSensor(current.type)}".Trim();
                 }
             }
         }
-        private readonly DispatcherTimer timer = new();
+
         public void StopTimer()
         {
             timer.Stop();
         }
+
         public WidgetWindow(bool booleano)
         {
             if (booleano != false)
@@ -120,42 +126,34 @@ namespace OverlayMonitorHardware
                 InitializeComponent();
                 DataContext = this;
 
-                List<OverlayDisplaySensorItem> name = new List<OverlayDisplaySensorItem>();
-                
-                string filePath = Path.Combine(AppContext.BaseDirectory,"sensor-config.json");
+                string filePath = Path.Combine(AppContext.BaseDirectory, "sensor-config.json");
                 string jsonString = File.ReadAllText(filePath);
                 List<SensorJson> Sensors = JsonSerializer.Deserialize<List<SensorJson>>(jsonString) ?? new List<SensorJson>();
-                
-                List<string> miLista = new List<string>();
-                if (Sensors != null)
+
+                foreach (var sensor in Sensors)
                 {
-                    // foreach (var sensor in Sensors)
-                    int j = 0;
-                    while (j < Sensors.Count)
+                    var group = HardwareGroups.FirstOrDefault(item => item.NameHardware == sensor.NameHardware);
+                    if (group == null)
                     {
-                        var sensor = Sensors[j];
-                        miLista.Add(sensor.NameSensor);
-                        j += 1;
+                        group = new OverlayDisplayHardwareGroup { NameHardware = sensor.NameHardware };
+                        HardwareGroups.Add(group);
                     }
-                    
-                    var sensorGet = values.GetValueSensors(miLista);
-                    // for (int i = 0; i < Sensors.Count && i < sensorGet.Count; i++)
-                    int i = 0;
-                    while (i < Sensors.Count)
+
+                    sensorNames.Add(sensor.NameSensor);
+                    group.Sensors.Add(new OverlayDisplaySensorItem
                     {
-                        var sensor = Sensors[i];
-                        SensorValues.Add(new OverlayDisplaySensorItem
-                        {
-                            NameSensor = $"{sensor.NameSensor}",
-                            ValueSensor = $"{sensorGet[i].value} {TSensor(sensorGet[i].type)}"
-                        });
-                        i += 1;
-                    }
+                        NameSensor = sensor.NameSensor
+                    });
                 }
-                timer.Interval = TimeSpan.FromSeconds(0.1);
-                timer.Tick += (sender, e) => ActualizarSensores(true, miLista);
+
+                ActualizarSensores();
+                timer.Interval = TimeSpan.FromMilliseconds(250);
+                timer.Tick += (sender, e) => ActualizarSensores();
                 timer.Start();
             }
         }
     }
 }
+
+// with laptop
+// codex resume 01a19079-3d7c-7df3-a5b6-79a7008d8dc3

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Windows;
@@ -6,10 +7,29 @@ using exportHardwareSensors;
 using LibreHardwareMonitor.Hardware;
 using LibreHardwareMonitor.Interop.PowerMonitor;
 
-// while (true)
+// public class MiServiceSecondPlane : BackgroundService
 // {
-// var miClase = new MiClase();
-// miClase.Test();
+//     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+//     {
+//         while (!stoppingToken.IsCancellationRequested)
+//         {
+//             Computer computer = new Computer
+//             {
+//                 IsCpuEnabled = true,
+//                 IsGpuEnabled = true,
+//                 IsMemoryEnabled = true,
+//                 IsMotherboardEnabled = true,
+//                 IsControllerEnabled = true,
+//                 IsNetworkEnabled = true, 
+//                 IsStorageEnabled = true,
+//                 IsPowerMonitorEnabled = true,
+//             };
+
+//             computer.Open();
+//             computer.Accept(new UpdateVisitor());
+//         }
+//     }
+// }
 
 namespace exportHardwareSensors
 {
@@ -32,9 +52,8 @@ namespace exportHardwareSensors
             computer.Open();
             computer.Accept(new UpdateVisitor());
 
-            // Dictionary<string, List<(string nameHardware, string nameSensor, string typeSensor)>> data_hardware = new();
             List<(string typeHardware, string nameHardware, string nameSensor, string typeSensor)> data_hardware = new();
-
+            
             foreach (IHardware hardware in computer.Hardware)
             {
                 hardware.Update();
@@ -45,26 +64,20 @@ namespace exportHardwareSensors
                 //     hardware.HardwareType == HardwareType.Cpu
                 // )
                 // {
-                    // Console.WriteLine($"\nHardware [{hardware.Name}]");
-                    // Console.WriteLine($"{hardware.HardwareType}");
-                    // Console.WriteLine("Hardware: {0}", hardware.Name);
 
                     foreach (IHardware subhardware in hardware.SubHardware)
                     {
-                        // Console.WriteLine("\tSubhardware: {0}", subhardware.Name);
                         
                         foreach (ISensor sensor in subhardware.Sensors)
                         {
                             data_hardware.Add(
-                            (
-                                $"{hardware.HardwareType}",
-                                $"{hardware.Name}",
-                                $"{sensor.Name}",
-                                $"{sensor.SensorType}"
-                            )
-                        );
-                            // Console.WriteLine("\t-------------------------------------------------------------------------");
-                            // Console.WriteLine("\t\tSensor: {0}, value: {1}, is: {2}", sensor.Name, sensor.Value ?? 0, sensor.SensorType);
+                                (
+                                    $"{hardware.HardwareType}",
+                                    $"{hardware.Name}",
+                                    $"{sensor.Name}",
+                                    $"{sensor.SensorType}"
+                                )
+                            );
                         }
                     }
                     
@@ -86,8 +99,6 @@ namespace exportHardwareSensors
             return data_hardware;
         }
     }
-        // Thread.Sleep(1000);
-    // }
 }
 
 namespace exportValueHardwareSensors
@@ -110,8 +121,10 @@ namespace exportValueHardwareSensors
 
             computer.Open();
             computer.Accept(new UpdateVisitor());
+
+            
             var ListTuple = new List<(string, string, string)>();
-            // List <string> values = new();
+
             foreach (IHardware hardware in computer.Hardware)
             {
                 hardware.Update();
@@ -139,15 +152,10 @@ namespace exportValueHardwareSensors
                         {
                             ListTuple.Add(($"{valor.Name}", $"{valor.Value?.ToString("F2") ?? "N/A"}", $"{valor.SensorType}"));
                         }
-                        
-                        // namme.Item3 = valor.SensorType;
-                        // values.Add($"{dataSensor[i]}: VALOR: {valor.Value?.ToString("F2")??"N/A"}\n");
-                        // ListTuple.Add(($"{valor.Name}", $"{valor.Value?.ToString("F2") ?? "N/A"}", $"{valor.SensorType}"));
                     }
                     i += 1;
                 }
             }
-            // MessageBox.Show(string.Join(", ", values));
             return ListTuple;
         }
     }

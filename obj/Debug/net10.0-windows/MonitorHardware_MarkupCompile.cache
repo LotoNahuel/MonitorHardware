@@ -1,5 +1,5 @@
 ﻿MonitorHardware
-
+1.0.0.0
 
 winexe
 C#
@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET10_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_O
 C:\Users\Loto_\Downloads\COSAS\PROGRAMACION\MonitorHardware\MonitorHardware\App.xaml
 2-1073076257
 
-7-482887234
+9-574487041
 214-1951064007
 MainWindow.xaml;WidgetWindow.xaml;
 
-False
+True
 
