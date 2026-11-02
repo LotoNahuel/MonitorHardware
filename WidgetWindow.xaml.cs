@@ -146,7 +146,7 @@ namespace OverlayMonitorHardware
                     });
                 }
 
-                ActualizarSensores();
+                // ActualizarSensores();
                 timer.Interval = TimeSpan.FromMilliseconds(250);
                 timer.Tick += (sender, e) => ActualizarSensores();
                 timer.Start();
@@ -155,5 +155,6 @@ namespace OverlayMonitorHardware
     }
 }
 
+// codex resume 01a0fee8-c422-7cf2-b9fc-c83b5d20accc
 // with laptop
 // codex resume 01a19079-3d7c-7df3-a5b6-79a7008d8dc3

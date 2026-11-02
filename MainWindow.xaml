@@ -19,7 +19,6 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- NAVBAR SUPERIOR -->
         <Border Grid.Row="0"
                 Background="#20252D"
                 Padding="12">
@@ -115,27 +114,6 @@
                 </TreeView>
             </DockPanel>
         </Border>
-
-        <!-- BARRA INFERIOR -->
-        <!-- <Border Grid.Row="2"
-                Background="#E5E7EB"
-                Padding="10">
-
-            <DockPanel LastChildFill="True">
-
-                <Button Content="SELECT"
-                        Click="button_Click"
-                        Padding="15,7"
-                        Margin="0,0,10,0"
-                        DockPanel.Dock="Right"/>
-
-                <TextBlock Name="SelectedSensorTextBlock"
-                           Text="Seleccioná un sensor"
-                           VerticalAlignment="Center"
-                           TextTrimming="CharacterEllipsis"/>
-
-            </DockPanel>
-        </Border> -->
 
     </Grid>
 </Window>

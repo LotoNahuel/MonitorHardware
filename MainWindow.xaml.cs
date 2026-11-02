@@ -182,12 +182,6 @@ namespace MonitorHardware
                 widgetWindow = new WidgetWindow(true);
                 widgetWindow.Show();
             }
-            // THE ELSE BUG THE CLOSED WIDGETWINDOW
-            // else
-            // {
-            //     widgetWindow = new WidgetWindow(false);
-            //     widgetWindow.Activate();
-            // }
         }
 
         private void CloseWidget(
