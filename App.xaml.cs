@@ -9,5 +9,10 @@ namespace MonitorHardware;
 /// </summary>
 public partial class App : Application
 {
+    // CLOSE COMPUTER
+    protected override void OnExit(ExitEventArgs e)
+    {
+        base.OnExit(e);
+    }
 }
 

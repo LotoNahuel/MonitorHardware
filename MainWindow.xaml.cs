@@ -172,15 +172,24 @@ namespace MonitorHardware
         }
 
         private WidgetWindow? widgetWindow;
-    
+
         private void OpenWidget_Click(
             object sender,
             RoutedEventArgs e)
         {
-            if ( widgetWindow == null || !widgetWindow.IsLoaded )
+            string filePath = Path.Combine(AppContext.BaseDirectory, "sensor-config.json");
+            if ( !File.Exists(filePath) )
             {
-                widgetWindow = new WidgetWindow(true);
-                widgetWindow.Show();
+                MessageBox.Show("No hay sensores seleccionados en la configuración.");
+                return;
+            }
+            else
+            {
+                if ( widgetWindow == null || !widgetWindow.IsLoaded )
+                {
+                    widgetWindow = new WidgetWindow(true);
+                    widgetWindow.Show();
+                }
             }
         }
 
