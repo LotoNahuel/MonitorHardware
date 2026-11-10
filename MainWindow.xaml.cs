@@ -177,11 +177,21 @@ namespace MonitorHardware
             object sender,
             RoutedEventArgs e)
         {
-            if ( widgetWindow == null || !widgetWindow.IsLoaded )
+            string filePath = Path.Combine(AppContext.BaseDirectory, "sensor-config.json");
+            if ( !File.Exists(filePath) )
             {
-                widgetWindow = new WidgetWindow(true);
-                widgetWindow.Show();
+                MessageBox.Show("No se encontró el archivo de configuración. Por favor, guarda la configuración primero.");
+                return;
             }
+            else
+            {
+                if ( widgetWindow == null || !widgetWindow.IsLoaded )
+                {
+                    widgetWindow = new WidgetWindow(true);
+                    widgetWindow.Show();
+                }
+            }
+            
             // THE ELSE BUG THE CLOSED WIDGETWINDOW
             // else
             // {

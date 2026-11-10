@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bgbKlChvov8=",
+  "dgSpecHash": "BPRPSwt4AMA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Loto_\\Downloads\\COSAS\\PROGRAMACION\\MonitorHardware\\MonitorHardware\\MonitorHardware.csproj",
+  "projectFilePath": "C:\\Users\\Loto_\\Downloads\\COSAS\\PROGRAMACION\\MonitorHardware\\MonitorHardware.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Loto_\\.nuget\\packages\\blacksharp.core\\1.0.7\\blacksharp.core.1.0.7.nupkg.sha512",
     "C:\\Users\\Loto_\\.nuget\\packages\\diskinfotoolkit\\1.1.2\\diskinfotoolkit.1.1.2.nupkg.sha512",

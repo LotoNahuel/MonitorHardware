@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection.Metadata;
@@ -103,11 +104,14 @@ namespace exportHardwareSensors
 
 namespace exportValueHardwareSensors
 {
-    public class valueSensors
+    public class valueSensors : IDisposable
     {
-        public List<(string name, string value, string type)> GetValueSensors(List<string> dataSensor)
+        private readonly Computer computer;
+        private readonly object lockSensors = new();
+
+        public valueSensors()
         {
-            Computer computer = new Computer
+            computer = new Computer
             {
                 IsCpuEnabled = true,
                 IsGpuEnabled = true,
@@ -121,42 +125,53 @@ namespace exportValueHardwareSensors
 
             computer.Open();
             computer.Accept(new UpdateVisitor());
-
-            
-            var ListTuple = new List<(string, string, string)>();
-
-            foreach (IHardware hardware in computer.Hardware)
+        }
+        public List<(string name, string value, string type)> GetValueSensors(List<string> dataSensor)
+        {
+            lock (lockSensors)
             {
-                hardware.Update();
+                var ListTuple = new List<(string, string, string)>();
 
-                int i = 0;
-                
-                while (i < dataSensor.Count)
+                foreach (IHardware hardware in computer.Hardware)
                 {
-                    ISensor? valor = hardware.Sensors.FirstOrDefault(p => p.Name == dataSensor[i]);
+                    hardware.Update();
+
+                    int i = 0;
                     
-                    if (valor != null)
+                    while (i < dataSensor.Count)
                     {
-                        int indice = ListTuple.FindIndex(p => p.Item1 == valor.Name);
-                        // MessageBox.Show($"{namme.Item1} \n {valor.Name}");
-                        // namme.Item1 = valor.Name;
-                        if (indice != -1)
+                        ISensor? valor = hardware.Sensors.FirstOrDefault(p => p.Name == dataSensor[i]);
+                        
+                        if (valor != null)
                         {
-                            ListTuple[indice] = (
-                                valor.Name,
-                                valor.Value?.ToString("F2") ?? "N/A",
-                                valor.SensorType.ToString()
-                            );
+                            int indice = ListTuple.FindIndex(p => p.Item1 == valor.Name);
+                            
+                            if (indice != -1)
+                            {
+                                ListTuple[indice] = (
+                                    valor.Name,
+                                    valor.Value?.ToString("F2") ?? "N/A",
+                                    valor.SensorType.ToString()
+                                );
+                            }
+                            else
+                            {
+                                ListTuple.Add(($"{valor.Name}", $"{valor.Value?.ToString("F2") ?? "N/A"}", $"{valor.SensorType}"));
+                            }
                         }
-                        else
-                        {
-                            ListTuple.Add(($"{valor.Name}", $"{valor.Value?.ToString("F2") ?? "N/A"}", $"{valor.SensorType}"));
-                        }
+                        i += 1;
                     }
-                    i += 1;
                 }
+                return ListTuple;
             }
-            return ListTuple;
+        }
+
+        public void Dispose()
+        {
+            lock (lockSensors)
+            {
+                computer.Close();
+            }
         }
     }
 }

@@ -108,8 +108,14 @@ namespace OverlayMonitorHardware
                 foreach (var sensor in group.Sensors)
                 {
                     var current = sensorGet.FirstOrDefault(value => value.name == sensor.NameSensor);
-                    if (current.name != null)
+                    if (current.name != null && current.value != "N/A")
+                    {
                         sensor.ValueSensor = $"{current.value} {TSensor(current.type)}".Trim();
+                    }
+                    else
+                    {
+                        sensor.ValueSensor = "N/A";
+                    }
                 }
             }
         }
@@ -133,6 +139,7 @@ namespace OverlayMonitorHardware
                 foreach (var sensor in Sensors)
                 {
                     var group = HardwareGroups.FirstOrDefault(item => item.NameHardware == sensor.NameHardware);
+                    
                     if (group == null)
                     {
                         group = new OverlayDisplayHardwareGroup { NameHardware = sensor.NameHardware };
@@ -140,6 +147,7 @@ namespace OverlayMonitorHardware
                     }
 
                     sensorNames.Add(sensor.NameSensor);
+
                     group.Sensors.Add(new OverlayDisplaySensorItem
                     {
                         NameSensor = sensor.NameSensor

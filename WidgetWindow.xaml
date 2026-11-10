@@ -6,6 +6,7 @@
         MaxWidth="300"
         SizeToContent="Height"
         MinHeight="60"
+        MaxHeight="1200"
         WindowStartupLocation="Manual"
         Left="0"
         Top="0"

@@ -1,0 +1,16 @@
+### EJECUCION ###
+El programa se ejecuta como administrador, esto debido a que hay sensores en la cpu que necesitan el permiso,
+tales como los de temperatura. Puedes quitar que se ejecute como administrador, en propiedades.
+Debe de tener en cuenta que si se ejecuta el programa sin administrador algunos sensores se mostrarar en "N/A".
+
+### VERSION NET ###
+Se puede ejecutar tanto en .NET 9 y 10. Pero se debe modificar el archivo MonitorHardware.csproj, debes cambiar
+    <TargetFramework>net10.0-windows</TargetFramework>
+por
+    <TargetFramework>net9.0-windows</TargetFramework>
+Los accesos directos estan en la raiz del programa nombrados con la version que soportan 9 o 10, aun asi los
+exe estan en la carpeta (bin/Debug/net9 o net10).
+
+### INSTALLER .NET ###
+Si no tiene .Net en su maquina, visite el siguiente enlace:
+    https://dotnet.microsoft.com/es-es/download/dotnet/10.0

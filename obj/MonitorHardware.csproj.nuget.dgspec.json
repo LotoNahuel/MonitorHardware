@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Loto_\\Downloads\\COSAS\\PROGRAMACION\\MonitorHardware\\MonitorHardware\\MonitorHardware.csproj": {}
+    "C:\\Users\\Loto_\\Downloads\\COSAS\\PROGRAMACION\\MonitorHardware\\MonitorHardware.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Loto_\\Downloads\\COSAS\\PROGRAMACION\\MonitorHardware\\MonitorHardware\\MonitorHardware.csproj": {
+    "C:\\Users\\Loto_\\Downloads\\COSAS\\PROGRAMACION\\MonitorHardware\\MonitorHardware.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Loto_\\Downloads\\COSAS\\PROGRAMACION\\MonitorHardware\\MonitorHardware\\MonitorHardware.csproj",
+        "projectUniqueName": "C:\\Users\\Loto_\\Downloads\\COSAS\\PROGRAMACION\\MonitorHardware\\MonitorHardware.csproj",
         "projectName": "MonitorHardware",
-        "projectPath": "C:\\Users\\Loto_\\Downloads\\COSAS\\PROGRAMACION\\MonitorHardware\\MonitorHardware\\MonitorHardware.csproj",
+        "projectPath": "C:\\Users\\Loto_\\Downloads\\COSAS\\PROGRAMACION\\MonitorHardware\\MonitorHardware.csproj",
         "packagesPath": "C:\\Users\\Loto_\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Loto_\\Downloads\\COSAS\\PROGRAMACION\\MonitorHardware\\MonitorHardware\\obj\\",
+        "outputPath": "C:\\Users\\Loto_\\Downloads\\COSAS\\PROGRAMACION\\MonitorHardware\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Loto_\\AppData\\Roaming\\NuGet\\NuGet.Config"
